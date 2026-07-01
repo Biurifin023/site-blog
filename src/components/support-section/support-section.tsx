@@ -5,7 +5,7 @@ export function SupportSection() {
         <section className="container pb-8 md:py-10 bg-gradient-to-r from-gray-500 to-gray-700">
 
             <div className="flex flex-col items-center gap-12">
-                <h2 className="text-balance text-center text-heading-xl text-gray-100">Sua loja de afiliados, simples, do jeito que deveria ser</h2>
+                <h2 className="mt-6 text-balance text-center text-heading-xl text-gray-100">Sua loja de afiliados, simples, do jeito que deveria ser</h2>
 
                 <div className="grid md:grid-cols-3 gap-6">
                     <div className="flex flex-col text-left gap-2 rounded-lg p-6 md:p-12 bg-blue-400">
