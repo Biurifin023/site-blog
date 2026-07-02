@@ -18,14 +18,14 @@ export function HeroSection() {
                     <div>
                         <div className="flex items-center gap-2">
                             <HugeiconsIcon icon={Clock01Icon} className="text-cyan-100 h-4 w-4" />
-                            <span className="text-gray-200">
+                            <span className="text-body-md text-gray-200">
                             Crie o seu site em menos de 5 minutos
                             </span>
                         </div>
 
                         <div className="flex items-center gap-2">
                             <HugeiconsIcon icon={StoreIcon} className="text-cyan-100 h-4 w-4" />
-                            <span className="text-gray-200">
+                            <span className="text-body-md text-gray-200">
                             Acompanhe e otimize seu negócio online
                             </span>
                         </div>
