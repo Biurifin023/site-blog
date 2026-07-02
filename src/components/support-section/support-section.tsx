@@ -1,10 +1,19 @@
-import { HeartHandshake, PaintbrushVertical, Store } from "lucide-react";
+import { HeartHandshake, PaintbrushVertical, Store } from "lucide-react"
+import Image from "next/image"
 
 export function SupportSection() {
     return (
-        <section className="container pb-8 md:py-10 bg-gradient-to-r from-gray-500 to-gray-700">
+        <section className="container relative overflow-hidden pb-8 md:py-10 bg-gradient-to-r from-gray-500 to-gray-700">
+            <Image
+                src="/assets/bg-support.png"
+                alt=""
+                fill
+                sizes="100vw"
+                className="hidden object-cover object-center opacity-90 md:block"
+                aria-hidden
+            />
 
-            <div className="flex flex-col items-center gap-12">
+            <div className="relative z-10 flex flex-col items-center gap-12">
                 <h2 className="mt-6 text-balance text-center text-heading-xl text-gray-100">Sua loja de afiliados, simples, do jeito que deveria ser</h2>
 
                 <div className="grid md:grid-cols-3 gap-6">

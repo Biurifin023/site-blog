@@ -3,11 +3,21 @@ import { ArrowRight, Store } from "@hugeicons/core-free-icons"
 import { buttonVariants } from "../ui/button"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import Image from "next/image"
 
 export const CallToAction = () => {
     return (
-        <section className="py-24 bg-gradient-to-b from-cyan-950 to-gray-700">
-            <div className="container">
+        <section className="relative isolate overflow-hidden py-24">
+            <Image
+                src="/assets/bg-call-to-action.png"
+                alt=""
+                fill
+                sizes="100vw"
+                className="object-cover object-center opacity-90"
+                aria-hidden
+            />
+
+            <div className="container relative z-10">
                 <div className="flex flex-col gap-6 text-center items-center">
                     <div className="p-4 bg-cyan-300 w-fit rounded-full">
                         <HugeiconsIcon icon={Store} className="text-cyan-100" />
