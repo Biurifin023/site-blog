@@ -4,6 +4,7 @@ import Link from "next/link"
 
 import { getAllPosts } from "@/lib/posts"
 import type { PostMeta } from "@/types/post"
+import { Search } from "@/components/search"
 
 type BlogPageProps = {
   posts: PostMeta[]
@@ -30,9 +31,11 @@ export default function BlogPage({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <section className="container mx-auto max-w-5xl px-6 py-24">
-      <header className="mb-12">
-        <h1 className="text-heading-lg text-gray-100">Dicas e estratégias para impulsionar seu negócio</h1>
-
+      <header className="mb-12 flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-6">
+        <h1 className="text-heading-lg text-gray-100 md:flex-1 md:min-w-0">
+          Dicas e estratégias para impulsionar seu negócio
+        </h1>
+        <Search />
       </header>    
         {posts.length === 0 ? (
           <p className="text-body-md text-gray-300">Nenhum post publicado ainda.</p>
