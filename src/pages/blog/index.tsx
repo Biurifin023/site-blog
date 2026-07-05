@@ -1,0 +1,78 @@
+import type { GetStaticProps, InferGetStaticPropsType } from "next"
+import Image from "next/image"
+import Link from "next/link"
+
+import { getAllPosts } from "@/lib/posts"
+import type { PostMeta } from "@/types/post"
+
+type BlogPageProps = {
+  posts: PostMeta[]
+}
+
+export const getStaticProps: GetStaticProps<BlogPageProps> = async () => {
+  const posts = await getAllPosts()
+
+  return {
+    props: { posts },
+  }
+}
+
+function formatDate(date: string) {
+  return new Intl.DateTimeFormat("pt-BR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(date))
+}
+
+export default function BlogPage({
+  posts,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  return (
+    <section className="container flex flex-col mx-auto max-w-5xl px-6 py-24">
+      <header className="mb-12">
+        <h1 className="text-heading-lg text-gray-100">Dicas e estratégias para impulsionar seu negócio</h1>
+
+      </header>
+
+      <div className="grid px-6 gap-8 md:grid-cols-3">
+
+
+        {posts.length === 0 ? (
+          <p className="text-body-md text-gray-300">Nenhum post publicado ainda.</p>
+        ) : (
+          <ul>
+            {posts.map((post) => (
+              <li key={post.slug}>
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-gray-600/20 transition-colors hover:border-cyan-300/40"
+                >
+                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-gray-500/30">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <time className="text-body-sm text-gray-300">
+                      {formatDate(post.date)}
+                    </time>
+                    <h2 className="mt-2 text-heading-sm text-gray-100 group-hover:text-cyan-100">
+                      {post.title}
+                    </h2>
+                    <p className="mt-3 flex-1 text-body-md text-gray-200">
+                      {post.description}
+                    </p>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  )
+}
