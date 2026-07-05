@@ -29,24 +29,20 @@ export default function BlogPage({
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <section className="container flex flex-col mx-auto max-w-5xl px-6 py-24">
+    <section className="container mx-auto max-w-5xl px-6 py-24">
       <header className="mb-12">
         <h1 className="text-heading-lg text-gray-100">Dicas e estratégias para impulsionar seu negócio</h1>
 
-      </header>
-
-      <div className="grid px-6 gap-8 md:grid-cols-3">
-
-
+      </header>    
         {posts.length === 0 ? (
           <p className="text-body-md text-gray-300">Nenhum post publicado ainda.</p>
         ) : (
-          <ul>
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post) => (
               <li key={post.slug}>
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-gray-600/20 transition-colors hover:border-cyan-300/40"
+                  className="bg-gray-600 group flex h-full flex-col overflow-hidden rounded-xl border border-white/10 transition-colors hover:border-cyan-300/40"
                 >
                   <div className="relative aspect-[16/9] w-full overflow-hidden bg-gray-500/30">
                     <Image
@@ -63,7 +59,7 @@ export default function BlogPage({
                     <h2 className="mt-2 text-heading-sm text-gray-100 group-hover:text-cyan-100">
                       {post.title}
                     </h2>
-                    <p className="mt-3 flex-1 text-body-md text-gray-200">
+                    <p className="mt-3 flex-1 text-body-md text-gray- line-clamp-3">
                       {post.description}
                     </p>
                   </div>
@@ -72,7 +68,6 @@ export default function BlogPage({
             ))}
           </ul>
         )}
-      </div>
     </section>
   )
 }
