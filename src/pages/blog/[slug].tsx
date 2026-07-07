@@ -1,7 +1,7 @@
 import type { GetStaticPaths, GetStaticProps } from "next"
 
 import { getPostBySlug, getPostSlugs } from "@/lib/posts"
-import { PostPage } from "@/templates/blog/[slug]"
+import { PostPage } from "@/templates/blog/slug"
 import type { PostMeta } from "@/types/post"
 
 type PostPageProps = {
