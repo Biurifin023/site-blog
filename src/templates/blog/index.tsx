@@ -43,16 +43,26 @@ export function BlogPage({ posts }: BlogPageProps) {
                     className="object-cover transition-transform group-hover:scale-105"
                   />
                 </div>
-                <div className="flex flex-1 flex-col p-6">
+                <div className="flex flex-col p-6">
                   <time className="text-body-sm text-gray-300">
                     {formatDate(post.date)}
                   </time>
-                  <h2 className="mt-2 text-heading-sm text-gray-100 group-hover:text-cyan-100">
+                  <h2 className="mt-2 text-heading-sm min-h-[3rem] text-gray-100 group-hover:text-cyan-100 line-clamp-2">
                     {post.title}
                   </h2>
-                  <p className="mt-3 flex-1 text-body-md text-gray- line-clamp-3">
+                  <p className="mt-3 flex-1 text-body-xs text-gray-300 line-clamp-3  md:text-body-md">
                     {post.description}
                   </p>
+                  <div className="mt-auto pt-4 flex items-center gap-2">
+                    <Image
+                      src={post.author.avatar}
+                      alt={post.author.name}
+                      width={24}
+                      height={24}
+                      className="rounded-full"
+                    />
+                    <span className="text-body-sm text-gray-300">{post.author.name}</span>
+                  </div>
                 </div>
               </Link>
             </li>

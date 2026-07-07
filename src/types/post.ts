@@ -4,4 +4,8 @@ export type PostMeta = {
   description: string
   image: string
   slug: string
+  author: {
+    name: string
+    avatar: string
+  }
 }
