@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 import { Search } from "@/components/search"
 import type { PostMeta } from "@/types/post"
@@ -17,6 +18,20 @@ function formatDate(date: string) {
 }
 
 export function BlogPage({ posts }: BlogPageProps) {
+  const router = useRouter()
+  const search = (router.query.q as string) ?? ""
+  const term = search.trim().toLowerCase()
+
+  const filteredPosts = posts.filter((post) => {
+    if (!term) return true
+
+    return (
+      post.title.toLowerCase().includes(term) ||
+      post.description.toLowerCase().includes(term) ||
+      post.author.name.toLowerCase().includes(term)
+    )
+  })
+
   return (
     <section className="container mx-auto max-w-5xl px-6 py-24">
       <header className="mb-12 flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-6">
@@ -27,9 +42,13 @@ export function BlogPage({ posts }: BlogPageProps) {
       </header>
       {posts.length === 0 ? (
         <p className="text-body-md text-gray-300">Nenhum post publicado ainda.</p>
+      ) : filteredPosts.length === 0 ? (
+        <p className="text-body-md text-gray-300">
+          Nenhum post encontrado para &quot;{search}&quot;.
+        </p>
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
+          {filteredPosts.map((post) => (
             <li key={post.slug}>
               <Link
                 href={`/blog/${post.slug}`}
