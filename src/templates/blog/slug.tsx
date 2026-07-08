@@ -6,7 +6,7 @@ import { getPostShareUrl } from "@/lib/share"
 import type { PostMeta } from "@/types/post"
 
 type PostPageProps = {
-  slug: string
+  Content: ComponentType
   metadata: PostMeta
 }
 
@@ -21,15 +21,8 @@ function formatDate(date: string) {
   }).format(localDate)
 }
 
-function loadPostContent(slug: string): ComponentType {
-  // Webpack resolve todos os .mdx em content/posts no build
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return require(`../../../content/posts/${slug}.mdx`).default
-}
-
-export function PostPage({ slug, metadata }: PostPageProps) {
-  const Content = loadPostContent(slug)
-  const shareUrl = getPostShareUrl(slug)
+export function PostPage({ Content, metadata }: PostPageProps) {
+  const shareUrl = getPostShareUrl(metadata.slug)
 
   return (
     <article className="container  mx-auto max-w-3xl px-4 py-24 md:max-w-5xl lg:max-w-6xl">

@@ -1,12 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/router"
 
 import { Search } from "@/components/search"
 import type { PostMeta } from "@/types/post"
 
 type BlogPageProps = {
   posts: PostMeta[]
+  search?: string
 }
 
 function formatDate(date: string) {
@@ -20,9 +20,7 @@ function formatDate(date: string) {
   }).format(localDate)
 }
 
-export function BlogPage({ posts }: BlogPageProps) {
-  const router = useRouter()
-  const search = (router.query.q as string) ?? ""
+export function BlogPage({ posts, search = "" }: BlogPageProps) {
   const term = search.trim().toLowerCase()
 
   const filteredPosts = posts.filter((post) => {

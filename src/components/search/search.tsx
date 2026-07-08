@@ -1,34 +1,47 @@
+"use client"
+
 import { SearchIcon } from "lucide-react"
-import { useRouter } from "next/router"
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback } from "react"
 import { CircleX } from "lucide-react"
 
 export const Search = () => {
     const router = useRouter()
-    const query = (router.query.q as string) ?? ''
+    const pathname = usePathname()
+    const currentPath = pathname ?? "/blog"
+    const searchParams = useSearchParams()
+    const query = searchParams?.get("q") ?? ""
+
+    const updateQuery = useCallback((value: string) => {
+        const params = new URLSearchParams(searchParams?.toString() ?? "")
+
+        if (value.trim()) {
+            params.set("q", value)
+        } else {
+            params.delete("q")
+        }
+
+        const queryString = params.toString()
+        const nextUrl = queryString ? `${currentPath}?${queryString}` : currentPath
+
+        router.push(nextUrl, { scroll: false })
+    }, [currentPath, router, searchParams])
 
     const handleSearch =useCallback((e: React.FormEvent) => {
         e.preventDefault()
 
         if (query?.trim()) {
-            router.push(`/blog?q=${encodeURIComponent(query)}`)
+            updateQuery(query)
         } 
-    }, [query, router])
+    }, [query, updateQuery])
 
     const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newQuery = e.target.value
-
-        router.push(`/blog?q=${encodeURIComponent(newQuery)}`, undefined, { 
-            shallow: true,
-            scroll: false,
-        })
+        updateQuery(newQuery)
     }
 
     const resetSearch = () => {
-        router.push('/blog', undefined, {
-            shallow: true,
-            scroll: false,
-        })
+        updateQuery("")
     }
 
     return (
